@@ -2,6 +2,10 @@
 
 Proyecto de Minería de Datos. FastAPI expone un clasificador que usa cuatro medidas en centímetros para estimar si una flor es setosa, versicolor o virginica.
 
+- [Repositorio público en GitHub](https://github.com/thesevenkw/api-prediccion-mineria)
+- [API pública en Render](https://api-prediccion-mineria.onrender.com)
+- [Swagger UI público](https://api-prediccion-mineria.onrender.com/docs)
+
 ## Instalar y ejecutar
 
 Usa Python 3.14. La versión fijada para Render se encuentra en `.python-version`.
@@ -68,3 +72,5 @@ Envía las cuatro medidas como números positivos y finitos. Un JSON inválido o
 ## Despliegue en Render
 
 `render.yaml` define un servicio web Python en el plan **Free**, con la rama `main` y la comprobación de salud en `/health`. El servicio instala las dependencias con `pip install -r requirements.txt` y arranca con `uvicorn main:app --host 0.0.0.0 --port $PORT`. Render proporciona `PORT`. [Guía oficial de FastAPI en Render](https://render.com/docs/deploy-fastapi)
+
+El servicio se creó desde la URL pública del repositorio. Los cambios se publican con un despliegue manual en Render. [Documentación de despliegues](https://render.com/docs/deploys)
