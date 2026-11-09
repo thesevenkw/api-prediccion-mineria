@@ -1,6 +1,6 @@
 # API de predicción Iris
 
-Proyecto de Minería de Datos. FastAPI expone un clasificador que usa cuatro medidas en centímetros para estimar si una flor es setosa, versicolor o virginica.
+Proyecto de Minería de Datos. FastAPI permite crear, consultar, actualizar y eliminar registros de flores. También clasifica flores Iris como setosa, versicolor o virginica a partir de cuatro medidas en centímetros.
 
 - [Repositorio público en GitHub](https://github.com/thesevenkw/api-prediccion-mineria)
 - [API pública en Render](https://api-prediccion-mineria.onrender.com)
@@ -32,6 +32,11 @@ Al arrancar, la API carga las 150 observaciones de Iris incluidas en scikit-lear
 | `GET /health` | Confirma que la API arrancó y el modelo está entrenado. |
 | `GET /modelo` | Describe el algoritmo, sus parámetros, las medidas y las clases. |
 | `POST /predecir` | Devuelve especie, confianza y probabilidades por clase. |
+| `POST /flores` | Guarda una flor y devuelve su ID con HTTP 201. |
+| `GET /flores` | Lista flores por ID. Acepta `limite` y `omitir` para paginar. |
+| `GET /flores/{id_flor}` | Consulta una flor por su ID. |
+| `PUT /flores/{id_flor}` | Reemplaza las cuatro medidas de una flor. |
+| `DELETE /flores/{id_flor}` | Elimina una flor y responde HTTP 204. |
 | `GET /docs` | Abre la interfaz interactiva de Swagger. |
 | `GET /openapi.json` | Devuelve la especificación OpenAPI. |
 
@@ -61,6 +66,15 @@ Respuesta HTTP 200 para el ejemplo.
 ```
 
 Envía las cuatro medidas como números positivos y finitos. Un JSON inválido o con campos incorrectos recibe HTTP 422 y una lista `detail` que identifica el problema.
+
+### Probar el CRUD en Swagger
+
+1. En **Flores**, ejecuta `POST /flores` con las mismas medidas del ejemplo de predicción. Copia el `id` de la respuesta.
+2. Ejecuta `GET /flores` para ver la lista y `GET /flores/{id_flor}` para consultar ese ID.
+3. Ejecuta `PUT /flores/{id_flor}` con las cuatro medidas y cambia una de ellas. Consulta otra vez el ID para confirmar el cambio.
+4. Ejecuta `DELETE /flores/{id_flor}`. Una consulta posterior al ID eliminado devuelve HTTP 404.
+
+Las rutas de **Flores** guardan mediciones en SQLite. `POST /predecir` calcula una predicción independiente. La base local se crea junto a `main.py` y puedes cambiar su ruta con `FLORES_DB`. En Render Free los registros de demostración se reinician al suspenderse o redesplegarse el servicio. [Almacenamiento en Render Free](https://render.com/docs/free#local-files-lost-on-redeploy)
 
 ## Pruebas automatizadas
 
